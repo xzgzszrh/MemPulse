@@ -1,5 +1,7 @@
 # MemPulse Code
 
+This guide describes our current desktop integration built on the excellent OpenCode project. MemPulse itself is an independent memory solution with CLI, MCP and HTTP interfaces. We plan plugin integrations for more IDEs; those dedicated plugins are not yet released.
+
 This checkout is the OpenCode desktop client with a MemPulse memory layer. OpenCode keeps the session, terminal, file review, model selection, update flow and server sidecar as upstream; MemPulse adds long-term memory across sessions and a home page built around it. The upstream repository is `https://github.com/anomalyco/opencode`; this checkout is a local customization and is not affiliated with the OpenCode maintainers.
 
 ## Division of labour

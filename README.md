@@ -3,17 +3,54 @@
 </p>
 
 <p align="center"><strong>English</strong> · <a href="README.zh-CN.md">简体中文</a></p>
-<p align="center"><a href="#quick-start">Quick start</a> · <a href="#architecture">Architecture</a> · <a href="#models">Models</a> · <a href="#build-and-test">Build & test</a> · <a href="#documentation">Documentation</a></p>
+<p align="center"><a href="#application-screenshots">Screenshots</a> · <a href="#mempulse-and-opencode">Positioning</a> · <a href="#quick-start">Quick start</a> · <a href="#architecture">Architecture</a> · <a href="#models">Models</a> · <a href="#build-and-test">Build & test</a> · <a href="#documentation">Documentation</a></p>
 
 # MemPulse
 
 **Local topic memory for agents. Pick up the work, not just the conversation.**
 
-MemPulse keeps events, preferences, knowledge versions and checkpoints in a local SQLite store, organized around persistent topics. It helps an agent retrieve relevant evidence and restore the state of a task across sessions. The project includes a Python memory service, CLI and MCP interfaces, a desktop client customized from OpenCode, and local TIDE model weights.
+MemPulse is a local-first memory solution for agents, with a core that can run independently of an IDE. It keeps events, preferences, knowledge versions and checkpoints in SQLite, organized around persistent topics, so agents can retrieve evidence and restore task context across sessions. The project provides a Python service, CLI, MCP and HTTP interfaces, local TIDE models, and a desktop integration built on OpenCode.
 
 For a task such as a platform migration, the topic can retain the decisions already made, tool results, unresolved gaps and the last checkpoint. A later session can retrieve that context and continue from it.
 
 > **License:** original MemPulse code is available under [Apache-2.0](LICENSE). Third-party code and model assets retain their applicable upstream terms; see [License and attribution](#license-and-attribution).
+
+## MemPulse and OpenCode
+
+**We provide a reusable memory solution for agents.** We chose [OpenCode](https://github.com/anomalyco/opencode), an excellent open-source project, as the foundation for our current desktop client. Its sessions, tool execution, terminal and desktop interactions let us focus on persistent topic memory, evidence retrieval, context restoration and memory governance. We are grateful to the OpenCode community for that foundation.
+
+OpenCode is the basis of our current complete desktop integration; **it is not the only host the MemPulse memory solution is designed to support**. The independent service already exposes CLI, MCP and HTTP interfaces for other hosts to integrate with. Each integration still needs adaptation and validation against the host's protocols, permissions and context-handling behavior.
+
+**We plan to support more IDEs through plugins**, bringing the same memory capabilities into developers' existing environments. Dedicated plugins for additional IDEs are planned, not yet released.
+
+| Layer | Current status |
+| --- | --- |
+| Independent memory core and CLI / MCP / HTTP interfaces | Available for standalone use and integration. |
+| OpenCode-based desktop integration | The current runnable implementation shown below. |
+| Plugins for additional IDEs | Planned; dedicated plugins have not been released. |
+
+## Application screenshots
+
+These are captures of the running MemPulse desktop frontend in its browser development preview, connected to the Python memory service with isolated synthetic demo data. They show the current OpenCode-based integration; the UI shown is in Chinese.
+
+**Home: explore a memory network organized around persistent topics.**
+
+![Running MemPulse home screen with a topic network, recent sessions and a workbench entry; synthetic demo data.](docs/assets/screenshots/home.jpg)
+
+<details>
+<summary>View the topic workbench and context restoration screens</summary>
+
+**Topic workbench: inspect task goals, tags and shared entities.**
+
+![MemPulse topic workbench showing the goals, tags and related entities of a synthetic delivery task.](docs/assets/screenshots/workbench.jpg)
+
+**Context restoration: inspect input files, template versions, missing fields and the event timeline.**
+
+![MemPulse context restoration fields and an event timeline preserving version changes, shown in a scrolled view.](docs/assets/screenshots/context.jpg)
+
+</details>
+
+Capture provenance and reproduction notes are in [screenshots/README](docs/assets/screenshots/README.md).
 
 ## What it does
 
@@ -119,6 +156,8 @@ Use the following MCP stdio configuration, replacing both absolute paths:
 MCP tools include `resolve_topic`, `ingest_event`, `search_memory`, `restore_context`, `list_topics` and `forget_memory`. The OpenCode desktop integration also provides context injection and its own `memory_*` tools. See the [desktop integration guide](OpenCode/docs/MEMPULSE.md).
 
 ## Architecture
+
+This diagram describes the current OpenCode desktop integration and standalone service adapters. Additional IDE plugins are part of the roadmap; the memory core is independent of the desktop host.
 
 ![Simplified architecture: Electron UI and OpenCode plugin reach MemoryBridge, which calls the Python memory service; CLI, MCP and HTTP also reach the service, backed by SQLite and local ONNX inference.](docs/assets/readme/architecture-en.png)
 

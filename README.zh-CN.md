@@ -3,17 +3,54 @@
 </p>
 
 <p align="center"><a href="README.md">English</a> · <strong>简体中文</strong></p>
-<p align="center"><a href="#快速开始">快速开始</a> · <a href="#系统架构">系统架构</a> · <a href="#模型与权重">模型与权重</a> · <a href="#构建与验证">构建与验证</a> · <a href="#文档导航">文档导航</a></p>
+<p align="center"><a href="#软件界面">软件界面</a> · <a href="#项目定位与-opencode">项目定位</a> · <a href="#快速开始">快速开始</a> · <a href="#系统架构">系统架构</a> · <a href="#模型与权重">模型与权重</a> · <a href="#构建与验证">构建与验证</a> · <a href="#文档导航">文档导航</a></p>
 
 # MemPulse
 
 **记忆，沿着话题生长。让 Agent 在下一次会话中，接着完成。**
 
-MemPulse 是本地优先的 Agent 话题记忆系统。它将事件、偏好、知识版本与检查点保存在本地 SQLite 中，围绕持续的话题组织上下文，帮助 Agent 跨会话检索证据、恢复任务状态。工程包含 Python 记忆服务、CLI 与 MCP 接口、基于 OpenCode 定制的桌面客户端，以及本地 TIDE 模型权重。
+MemPulse 提供一套面向 Agent 的本地优先记忆方案。它将事件、偏好、知识版本与检查点保存在本地 SQLite 中，围绕持续的话题组织上下文，帮助 Agent 跨会话检索证据、恢复任务状态。记忆核心可以独立运行，工程同时提供 Python 服务、CLI、MCP、HTTP 接口、本地 TIDE 模型，以及基于 OpenCode 构建的桌面集成。
 
 例如，一次平台迁移可以持续保留已经确定的决策、工具执行结果、尚未解决的问题与最近的检查点。新的会话可以检索这些内容，接着推进同一项工作。
 
 > **许可证：**MemPulse 自研代码采用 [Apache-2.0](LICENSE)。第三方代码和模型资产保留各自适用的上游条款，详见[许可与致谢](#许可与致谢)。
+
+## 项目定位与 OpenCode
+
+**我们提供的是一套可复用的 Agent 记忆方案。** 我们选择优秀的开源项目 [OpenCode](https://github.com/anomalyco/opencode) 作为当前桌面客户端的构建基础，复用它的会话管理、工具执行、终端和桌面交互能力，将工作重点放在长期话题记忆、证据检索、上下文恢复和记忆治理上。感谢 OpenCode 社区提供的扎实基础。
+
+OpenCode 是当前完整桌面集成的基础，**并不意味着 MemPulse 的记忆方案仅支持 OpenCode**。独立记忆服务已提供 CLI、MCP 和 HTTP 接口，其他宿主可以通过相应接口接入；具体接入仍需结合宿主的协议、权限和上下文交互方式进行适配与验证。
+
+**未来，我们将以插件形式兼容更多 IDE**，让开发者在熟悉的开发环境中使用同一套记忆能力。更多 IDE 的专用插件目前处于规划阶段。
+
+| 层次 | 当前状态 |
+| --- | --- |
+| 独立记忆核心与 CLI / MCP / HTTP 接口 | 已提供，可独立运行和接入。 |
+| 基于 OpenCode 的桌面集成 | 当前可运行的完整实现，承载本文中的界面。 |
+| 面向更多 IDE 的插件 | 后续规划，尚未发布专用插件。 |
+
+## 软件界面
+
+以下为真实运行的 MemPulse 桌面前端截图，通过浏览器开发预览连接独立 Python 记忆服务，使用隔离的合成演示数据。截图展示当前基于 OpenCode 的集成界面。
+
+**首页：围绕持续话题浏览记忆网络。**
+
+![MemPulse 运行界面：首页展示话题网络、最近会话与工作台入口，使用合成演示数据。](docs/assets/screenshots/home.jpg)
+
+<details>
+<summary>查看话题工作台与上下文恢复界面</summary>
+
+**话题工作台：查看任务目标、标签和共享实体。**
+
+![MemPulse 话题工作台：示例交付任务的目标、标签和关联实体。](docs/assets/screenshots/workbench.jpg)
+
+**上下文恢复：查看输入文件、模板版本、待补信息与事件时间线。**
+
+![MemPulse 上下文恢复界面：恢复字段和保留版本变化的事件时间线，滚动视图。](docs/assets/screenshots/context.jpg)
+
+</details>
+
+截图来源与复现说明见 [screenshots/README](docs/assets/screenshots/README.md)。
 
 ## 核心能力
 
@@ -119,6 +156,8 @@ MCP stdio 配置如下，将两处绝对路径替换为实际位置：
 MCP 工具包括 `resolve_topic`、`ingest_event`、`search_memory`、`restore_context`、`list_topics` 和 `forget_memory`。OpenCode 桌面集成还提供上下文注入和专用的 `memory_*` 工具，详见[桌面集成说明](OpenCode/docs/MEMPULSE.md)（英文）。
 
 ## 系统架构
+
+下图展示当前 OpenCode 桌面集成与独立服务接口。更多 IDE 的插件属于后续规划，记忆核心本身独立于桌面宿主。
 
 ![系统简图：Electron 界面和 OpenCode 插件通过 MemoryBridge 调用 Python 记忆服务；CLI、MCP 和 HTTP 也可访问服务，底层使用 SQLite 与本地 ONNX 推理。](docs/assets/readme/architecture-zh.png)
 
