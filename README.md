@@ -3,21 +3,72 @@
 </p>
 
 <p align="center"><strong>English</strong> · <a href="README.zh-CN.md">简体中文</a></p>
-<p align="center"><a href="#application-screenshots">Screenshots</a> · <a href="#mempulse-and-opencode">Positioning</a> · <a href="#quick-start">Quick start</a> · <a href="#architecture">Architecture</a> · <a href="#models">Models</a> · <a href="#build-and-test">Build & test</a> · <a href="#documentation">Documentation</a></p>
+<p align="center"><a href="#memory-organized-around-topics">Understanding topics</a> · <a href="#application-screenshots">Screenshots</a> · <a href="#mempulse-and-opencode">Positioning</a> · <a href="#quick-start">Quick start</a> · <a href="#architecture">Architecture</a> · <a href="#models">Models</a> · <a href="#build-and-test">Build & test</a> · <a href="#documentation">Documentation</a></p>
 
 # MemPulse
 
 **Local topic memory for agents. Pick up the work, not just the conversation.**
 
-MemPulse is a local-first memory solution for agents, with a core that can run independently of an IDE. It keeps events, preferences, knowledge versions and checkpoints in SQLite, organized around persistent topics, so agents can retrieve evidence and restore task context across sessions. The project provides a Python service, CLI, MCP and HTTP interfaces, local TIDE models, and a desktop integration built on OpenCode.
+**MemPulse is an agent-memory solution built around Topics as the core unit of long-term memory.** Each topic represents an ongoing matter, connecting events, evidence and working state across sessions so an agent can find the matter, restore its context and continue the work.
 
-For a task such as a platform migration, the topic can retain the decisions already made, tool results, unresolved gaps and the last checkpoint. A later session can retrieve that context and continue from it.
+Topics and events are stored locally in SQLite. The memory core runs independently and exposes CLI, MCP and HTTP interfaces. The current desktop integration is built on OpenCode, with plugins for additional IDEs planned.
 
 > **License:** original MemPulse code is available under [Apache-2.0](LICENSE). Third-party code and model assets retain their applicable upstream terms; see [License and attribution](#license-and-attribution).
 
+## Memory organized around topics
+
+### What is a topic?
+
+In MemPulse, a **Topic is a persistent memory unit organized around an ongoing matter, with an identity that survives individual sessions**. It has a goal and a boundary, and accumulates events, evidence, state and checkpoints as the work progresses. “Complete the Qinghe client delivery report,” for example, is a topic. Requirement confirmation, template changes, draft generation and acceptance feedback can all be events within it.
+
+A topic answers: **“What have we been working on, where does it stand, and what is still missing?”** It organizes the working context needed to continue that matter, beyond remembering what was said.
+
+| Concept | Role in MemPulse |
+| --- | --- |
+| **Topic** | The identity and boundary of an ongoing matter; organizes its goal, event history, related information and recoverable state. |
+| Session | An interaction and a source of events. One topic can span several sessions; changing matters within a session requires an explicit change of topic association. |
+| Project / directory | Background context for locating work. One project can contain several independent topics. |
+| Tags / people / files and other entities | Clues for locating topics and connecting evidence. Sharing these clues does not automatically make two distinct matters one topic. |
+
+### How does a topic grow?
+
+Consider **“Qinghe client delivery report”** from the synthetic demo: the delivery scope is confirmed and a V2 template imported; the client later confirms V3; a draft is then generated for review. These records may come from different sessions while continuing the same matter.
+
+```mermaid
+flowchart LR
+    A["Events from session A<br/>Requirements and V2 template"] --> T["One persistent topic<br/>Qinghe client delivery report"]
+    B["Events from session B<br/>Confirm the switch to V3"] --> T
+    C["Events from session C<br/>Generate a draft for review"] --> T
+    T --> R["Restore working context<br/>Fields · evidence · checkpoints · gaps"]
+    style T fill:#fff0ec,stroke:#c83127,stroke-width:2px,color:#242522
+```
+
+*Conceptual example: related events enter the same topic after their association is established. Sessions supply the events; the topic maintains the continuing memory.*
+
+A topic brings together:
+
+- **Goal and boundary:** what the work is intended to accomplish, and which nearby matters belong to other topics.
+- **Events and provenance:** what happened, when it happened and the supporting sources needed for later review.
+- **Relationships and applicable information:** people, resources and tags, with preferences and knowledge resolved by scope and version.
+- **Recoverable state:** recorded context fields, checkpoints and missing information that help a later session resume the work.
+
+“Organize the shared template library” can be a separate topic in the same project. Even if it involves the same people and template files, its goal and boundary remain distinct. Related topics can be connected without being automatically merged because their words look similar.
+
+### From finding a topic to continuing the work
+
+When a user starts a new session with “Continue the Qinghe delivery report,” MemPulse focuses on:
+
+1. **Locating the topic:** use names, people and resources alongside lexical search, structured relationships and optional TIDE embeddings to find candidate topics, then select relevant event evidence. Ambiguity calls for clarification.
+2. **Restoring context:** return recorded fields, supporting evidence, an available checkpoint and gaps for the identified topic. In this example, the input file and current V3 template can be restored with evidence for the change. Output preferences or step status that have not been recorded as structured fields remain explicitly missing.
+3. **Continuing the history:** in the desktop integration, once the user confirms topic creation or association, subsequent captured events follow the current binding. The topic keeps growing across sessions instead of requiring a fresh task memory for every chat.
+
+Unbound capture stays pending. Creating a session, changing its title or ranking first in vector search does not automatically create, rename or rebind a topic. Retrieval and restoration are reads; memory mutations follow their respective confirmation flows.
+
+See the [topic and task contract](MemPulse/docs/TOPIC-CONTRACT-20260915.md) (Chinese) for detailed association, tagging, retrieval and governance rules.
+
 ## MemPulse and OpenCode
 
-**We provide a reusable memory solution for agents.** We chose [OpenCode](https://github.com/anomalyco/opencode), an excellent open-source project, as the foundation for our current desktop client. Its sessions, tool execution, terminal and desktop interactions let us focus on persistent topic memory, evidence retrieval, context restoration and memory governance. We are grateful to the OpenCode community for that foundation.
+**We provide a reusable, topic-centered memory solution for agents.** We chose [OpenCode](https://github.com/anomalyco/opencode), an excellent open-source project, as the foundation for our current desktop client. Its sessions, tool execution, terminal and desktop interactions let us focus on persistent topic memory, evidence retrieval, context restoration and memory governance. We are grateful to the OpenCode community for that foundation.
 
 OpenCode is the basis of our current complete desktop integration; **it is not the only host the MemPulse memory solution is designed to support**. The independent service already exposes CLI, MCP and HTTP interfaces for other hosts to integrate with. Each integration still needs adaptation and validation against the host's protocols, permissions and context-handling behavior.
 
@@ -52,14 +103,14 @@ These are captures of the running MemPulse desktop frontend in its browser devel
 
 Capture provenance and reproduction notes are in [screenshots/README](docs/assets/screenshots/README.md).
 
-## What it does
+## Capabilities built around topics
 
 | Capability | Behavior |
 | --- | --- |
-| Persistent topics | Organizes task goals, event histories, evidence and checkpoints beyond one chat session. |
-| Local retrieval | Combines lexical search and structured relationships with an optional local ONNX encoder. |
-| Context restoration | Returns relevant fields, supporting evidence and missing information for the next step. |
-| Memory governance | Supports topic corrections, merges and splits, preference scopes, knowledge versions and targeted forgetting. |
+| Topic creation and continuity | Defines a matter’s goal and boundary, maintaining a stable identity as events accumulate across sessions. |
+| Topic and evidence retrieval | Uses lexical search, entity relationships and optional ONNX embeddings to locate candidate topics, then selects relevant events within them. |
+| Topic restoration | Returns context fields, supporting evidence, an available checkpoint and gaps for the topic. |
+| Topic and memory governance | Supports topic corrections, merges and splits, preference scopes, knowledge versions and targeted forgetting. |
 | Agent integration | Exposes CLI, MCP and HTTP interfaces, plus `memory_*` tools in the customized desktop client. |
 | Complete desktop build | Packages the frontend, Python service, ONNX runtime and FP32 model into a standalone application. |
 
@@ -182,7 +233,7 @@ The complete delivery includes `微调模型/revision4-model-bundle/`:
 
 The model package contains about **1.01 GB** of manifest-listed files. Large weights use Git LFS when committed to a repository. `scripts/verify_models.py` validates all 30 listed files before the desktop build.
 
-The bundled model is based on `BAAI/bge-base-zh-v1.5`. It produces retrieval candidates, not permission to assign topics or execute memory operations. Mixed INT8 remains experimental; FP32 is the packaged default. Consult the [original model notes](微调模型/revision4-model-bundle/README.md) and [training guide](MemPulse/docs/TRAINING.md) (Chinese) for evaluation scope and limitations.
+The bundled model is based on `BAAI/bge-base-zh-v1.5`. TIDE helps locate candidate topics; specific facts are retrieved from the events and source evidence within those topics. It does not grant permission to assign topics or execute memory operations. Mixed INT8 remains experimental; FP32 is the packaged default. Consult the [original model notes](微调模型/revision4-model-bundle/README.md) and [training guide](MemPulse/docs/TRAINING.md) (Chinese) for evaluation scope and limitations.
 
 ## Build and test
 
