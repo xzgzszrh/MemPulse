@@ -1,0 +1,14 @@
+MemPulse
+Copyright 2026 MemPulse contributors
+
+Original MemPulse code is licensed under Apache License 2.0.
+
+This distribution includes components from other projects:
+- OpenCode: Copyright (c) 2025 opencode; MIT License, retained in OpenCode/LICENSE.
+- Episodic fingerprint implementation: Copyright 2025 Michael H. Coen;
+  Apache License 2.0, retained in MemPulse/src/mempulse/_vendor/LICENSE.
+- BGE model and tokenizer provenance: BAAI/bge-base-zh-v1.5;
+  upstream MIT notice retained in docs/licenses/BGE-MIT.txt.
+
+Third-party components retain their original licenses and notices.
+See docs/THIRD_PARTY.md for scope and source details.

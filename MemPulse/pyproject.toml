@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mempulse"
+version = "0.1.0"
+description = "Local topic memory: 记忆是沿着话题不断生长的脉络"
+readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+vector = ["hnswlib>=0.8", "numpy>=1.26"]
+web = ["fastapi>=0.110", "uvicorn>=0.29"]
+test = ["pytest>=8", "httpx>=0.27", "fastapi>=0.110"]
+onnx = ["onnxruntime>=1.20,<2", "tokenizers>=0.21,<0.23", "numpy>=1.26,<3"]
+train = ["torch>=2.2", "transformers>=4.40", "FlagEmbedding>=1.2", "onnx>=1.16", "onnxruntime>=1.17"]
+
+[project.scripts]
+mempulse = "mempulse.cli:main"
+yishu = "mempulse.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+mempulse = ["_vendor/LICENSE", "skill_data/*.md", "static/*", "static/assets/*"]
+
+[tool.pytest.ini_options]
+markers = [
+    "standalone_webui: requires the separately built standalone WebUI and its JavaScript assets",
+]

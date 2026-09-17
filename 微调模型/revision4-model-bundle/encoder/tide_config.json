@@ -1,0 +1,21 @@
+{
+  "model": "BAAI/bge-base-zh-v1.5",
+  "query_max_length": 128,
+  "topic_max_length": 384,
+  "pooling": "cls",
+  "normalize": true,
+  "query_instruction": "为这个句子生成表示以用于检索相关文章：",
+  "learning_rate": 2e-05,
+  "warmup_ratio": 0.1,
+  "weight_decay": 0.01,
+  "negatives_per_group": 7,
+  "groups_per_step": 64,
+  "temperature": 0.02,
+  "max_epochs": 5,
+  "eval_steps": 100,
+  "seed": 42,
+  "onnx_opset": 17,
+  "coverage_target": 0.9,
+  "accepted_error_target": 0.03,
+  "gradient_checkpointing": true
+}

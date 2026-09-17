@@ -1,0 +1,55 @@
+[data-component="dialog-v2"][data-fit] [data-slot="dialog-container"].memory-dialog-container {
+  width: min(640px, calc(100vw - 32px));
+  height: auto;
+  max-height: calc(100dvh - 48px);
+  border-radius: 12px;
+
+  [data-slot="dialog-content"] {
+    min-height: 0;
+    max-height: inherit;
+    flex: 0 1 auto;
+    overflow: hidden;
+
+    [data-slot="dialog-body"] {
+      min-height: 0;
+      flex: 0 1 auto;
+      padding: 0 16px 16px;
+      overflow-x: hidden;
+      overflow-y: auto;
+      overflow-wrap: anywhere;
+      line-height: 1.6;
+    }
+
+    [data-slot="dialog-footer"] {
+      flex-wrap: wrap;
+      border-top: 1px solid var(--v2-border-border-base);
+    }
+  }
+}
+
+[data-component="dialog-v2"][data-fit][data-size="normal"] [data-slot="dialog-container"].memory-dialog-container {
+  width: min(480px, calc(100vw - 32px));
+}
+
+.memory-operation-fields {
+  display: grid;
+  grid-template-columns: minmax(88px, 112px) minmax(0, 1fr);
+  gap: 10px 16px;
+  margin: 0;
+}
+
+.memory-operation-fields dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 480px) {
+  .memory-operation-fields {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
+  }
+
+  .memory-operation-fields dd:not(:last-child) {
+    margin-bottom: 8px;
+  }
+}

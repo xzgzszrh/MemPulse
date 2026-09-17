@@ -1,0 +1,77 @@
+{
+  "precision": "mixed W8A8 with first/last transformer layers FP32",
+  "excluded_nodes": [
+    "/model/encoder/layer.0/attention/self/query/MatMul",
+    "/model/encoder/layer.0/attention/self/key/MatMul",
+    "/model/encoder/layer.0/attention/self/value/MatMul",
+    "/model/encoder/layer.0/attention/output/dense/MatMul",
+    "/model/encoder/layer.0/intermediate/dense/MatMul",
+    "/model/encoder/layer.0/output/dense/MatMul",
+    "/model/encoder/layer.11/attention/self/query/MatMul",
+    "/model/encoder/layer.11/attention/self/key/MatMul",
+    "/model/encoder/layer.11/attention/self/value/MatMul",
+    "/model/encoder/layer.11/attention/output/dense/MatMul",
+    "/model/encoder/layer.11/intermediate/dense/MatMul",
+    "/model/encoder/layer.11/output/dense/MatMul"
+  ],
+  "quantized_constant_matmul_count": 60,
+  "total_constant_matmul_count": 72,
+  "bytes": 195440645,
+  "results": [
+    {
+      "query": true,
+      "batch": 1,
+      "min_cosine": 0.9934521913528442,
+      "cosines": [
+        0.9968733191490173,
+        0.9980661869049072,
+        0.9961037635803223,
+        0.9976073503494263,
+        0.9934521913528442,
+        0.9964725971221924
+      ]
+    },
+    {
+      "query": true,
+      "batch": 6,
+      "min_cosine": 0.9934285879135132,
+      "cosines": [
+        0.9968633651733398,
+        0.9980661869049072,
+        0.9961037635803223,
+        0.997083306312561,
+        0.9934285879135132,
+        0.9964725971221924
+      ]
+    },
+    {
+      "query": false,
+      "batch": 1,
+      "min_cosine": 0.9932273626327515,
+      "cosines": [
+        0.996518075466156,
+        0.9982622861862183,
+        0.9961753487586975,
+        0.9977023005485535,
+        0.9932273626327515,
+        0.9957388639450073
+      ]
+    },
+    {
+      "query": false,
+      "batch": 6,
+      "min_cosine": 0.9932273626327515,
+      "cosines": [
+        0.9965178966522217,
+        0.99783855676651,
+        0.9961753487586975,
+        0.9977298378944397,
+        0.9932273626327515,
+        0.9957388639450073
+      ]
+    }
+  ],
+  "fixed_probe_pass": true,
+  "publishable": false,
+  "target_sdk": "not_tested"
+}

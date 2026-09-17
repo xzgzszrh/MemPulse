@@ -1,0 +1,326 @@
+{
+  "data_sha256": "2bf3bfae48379ce6f2aa51afb8a5b166d3f5764e854cfa5cad35093c9372ca4a",
+  "results": [
+    {
+      "model": "frozen",
+      "checkpoint": "models/bge-base-zh-v1.5",
+      "calibration_status": "no_feasible_thresholds",
+      "threshold_diagnostic_only": true,
+      "thresholds": {
+        "theta_new": 0.54,
+        "delta_ambig": 0.0
+      },
+      "top1": 0.8438461538461538,
+      "test_metrics": {
+        "total": 1600,
+        "resolvable": 1300,
+        "top1_correct": 1097,
+        "accepted_resolvable": 1162,
+        "correctly_resumed": 1027,
+        "accepted": 1194,
+        "accepted_wrong": 167,
+        "nonresolvable": 300,
+        "false_bind_nonresolvable": 32,
+        "insufficient": 100,
+        "insufficient_rejected": 100,
+        "insufficient_false_bind": 0,
+        "protocol": "selective-routing-v2-singleton-zero",
+        "top1": 0.8438461538461538,
+        "coverage": 0.8938461538461538,
+        "correct_resume_coverage": 0.79,
+        "overall_acceptance": 0.74625,
+        "accepted_error": 0.13986599664991625,
+        "nonresolvable_false_bind_rate": 0.10666666666666667,
+        "insufficient_rejection_rate": 1.0,
+        "insufficient_false_bind_rate": 0.0,
+        "route_class_accuracy": {
+          "NEW": 0.99,
+          "AMBIGUOUS": 0.0
+        },
+        "new_ambiguous_macro_accuracy": 0.495,
+        "class_support": {
+          "RESUME": 1300,
+          "INSUFFICIENT": 100,
+          "AMBIGUOUS": 100,
+          "NEW": 100
+        },
+        "confusion": {
+          "AMBIGUOUS->NEW": 69,
+          "AMBIGUOUS->RESUME": 31,
+          "INSUFFICIENT->NEW": 100,
+          "NEW->NEW": 99,
+          "NEW->RESUME": 1,
+          "RESUME->NEW": 138,
+          "RESUME->RESUME": 1162
+        },
+        "note": "Rejecting INSUFFICIENT proves only non-assignment, not correct NEW/create or AMBIGUOUS semantics."
+      },
+      "test_including_missing_targets": {
+        "total": 2900,
+        "resolvable": 1300,
+        "top1_correct": 1097,
+        "accepted_resolvable": 1162,
+        "correctly_resumed": 1027,
+        "accepted": 2208,
+        "accepted_wrong": 1181,
+        "nonresolvable": 1600,
+        "false_bind_nonresolvable": 1046,
+        "insufficient": 1400,
+        "insufficient_rejected": 386,
+        "insufficient_false_bind": 1014,
+        "protocol": "selective-routing-v2-singleton-zero",
+        "top1": 0.8438461538461538,
+        "coverage": 0.8938461538461538,
+        "correct_resume_coverage": 0.79,
+        "overall_acceptance": 0.7613793103448275,
+        "accepted_error": 0.5348731884057971,
+        "nonresolvable_false_bind_rate": 0.65375,
+        "insufficient_rejection_rate": 0.2757142857142857,
+        "insufficient_false_bind_rate": 0.7242857142857143,
+        "route_class_accuracy": {
+          "NEW": 0.99,
+          "AMBIGUOUS": 0.0
+        },
+        "new_ambiguous_macro_accuracy": 0.495,
+        "class_support": {
+          "RESUME": 1300,
+          "INSUFFICIENT": 1400,
+          "AMBIGUOUS": 100,
+          "NEW": 100
+        },
+        "confusion": {
+          "AMBIGUOUS->NEW": 69,
+          "AMBIGUOUS->RESUME": 31,
+          "INSUFFICIENT->NEW": 386,
+          "INSUFFICIENT->RESUME": 1014,
+          "NEW->NEW": 99,
+          "NEW->RESUME": 1,
+          "RESUME->NEW": 138,
+          "RESUME->RESUME": 1162
+        },
+        "note": "Rejecting INSUFFICIENT proves only non-assignment, not correct NEW/create or AMBIGUOUS semantics."
+      },
+      "formal_release": false
+    },
+    {
+      "model": "full",
+      "checkpoint": "runs/revision4-full-experiment/step-100",
+      "calibration_status": "no_feasible_thresholds",
+      "threshold_diagnostic_only": true,
+      "thresholds": {
+        "theta_new": 0.56,
+        "delta_ambig": 0.01
+      },
+      "top1": 0.99,
+      "test_metrics": {
+        "total": 1600,
+        "resolvable": 1300,
+        "top1_correct": 1287,
+        "accepted_resolvable": 1192,
+        "correctly_resumed": 1191,
+        "accepted": 1249,
+        "accepted_wrong": 58,
+        "nonresolvable": 300,
+        "false_bind_nonresolvable": 57,
+        "insufficient": 100,
+        "insufficient_rejected": 100,
+        "insufficient_false_bind": 0,
+        "protocol": "selective-routing-v2-singleton-zero",
+        "top1": 0.99,
+        "coverage": 0.916923076923077,
+        "correct_resume_coverage": 0.9161538461538462,
+        "overall_acceptance": 0.780625,
+        "accepted_error": 0.04643714971977582,
+        "nonresolvable_false_bind_rate": 0.19,
+        "insufficient_rejection_rate": 1.0,
+        "insufficient_false_bind_rate": 0.0,
+        "route_class_accuracy": {
+          "NEW": 1.0,
+          "AMBIGUOUS": 0.11
+        },
+        "new_ambiguous_macro_accuracy": 0.555,
+        "class_support": {
+          "RESUME": 1300,
+          "INSUFFICIENT": 100,
+          "AMBIGUOUS": 100,
+          "NEW": 100
+        },
+        "confusion": {
+          "AMBIGUOUS->AMBIGUOUS": 11,
+          "AMBIGUOUS->NEW": 32,
+          "AMBIGUOUS->RESUME": 57,
+          "INSUFFICIENT->NEW": 100,
+          "NEW->NEW": 100,
+          "RESUME->AMBIGUOUS": 8,
+          "RESUME->NEW": 100,
+          "RESUME->RESUME": 1192
+        },
+        "note": "Rejecting INSUFFICIENT proves only non-assignment, not correct NEW/create or AMBIGUOUS semantics."
+      },
+      "test_including_missing_targets": {
+        "total": 2900,
+        "resolvable": 1300,
+        "top1_correct": 1287,
+        "accepted_resolvable": 1192,
+        "correctly_resumed": 1191,
+        "accepted": 2014,
+        "accepted_wrong": 823,
+        "nonresolvable": 1600,
+        "false_bind_nonresolvable": 822,
+        "insufficient": 1400,
+        "insufficient_rejected": 635,
+        "insufficient_false_bind": 765,
+        "protocol": "selective-routing-v2-singleton-zero",
+        "top1": 0.99,
+        "coverage": 0.916923076923077,
+        "correct_resume_coverage": 0.9161538461538462,
+        "overall_acceptance": 0.6944827586206896,
+        "accepted_error": 0.4086395233366435,
+        "nonresolvable_false_bind_rate": 0.51375,
+        "insufficient_rejection_rate": 0.45357142857142857,
+        "insufficient_false_bind_rate": 0.5464285714285714,
+        "route_class_accuracy": {
+          "NEW": 1.0,
+          "AMBIGUOUS": 0.11
+        },
+        "new_ambiguous_macro_accuracy": 0.555,
+        "class_support": {
+          "RESUME": 1300,
+          "INSUFFICIENT": 1400,
+          "AMBIGUOUS": 100,
+          "NEW": 100
+        },
+        "confusion": {
+          "AMBIGUOUS->AMBIGUOUS": 11,
+          "AMBIGUOUS->NEW": 32,
+          "AMBIGUOUS->RESUME": 57,
+          "INSUFFICIENT->AMBIGUOUS": 22,
+          "INSUFFICIENT->NEW": 613,
+          "INSUFFICIENT->RESUME": 765,
+          "NEW->NEW": 100,
+          "RESUME->AMBIGUOUS": 8,
+          "RESUME->NEW": 100,
+          "RESUME->RESUME": 1192
+        },
+        "note": "Rejecting INSUFFICIENT proves only non-assignment, not correct NEW/create or AMBIGUOUS semantics."
+      },
+      "formal_release": false
+    },
+    {
+      "model": "top",
+      "checkpoint": "runs/revision4-top-experiment/step-300",
+      "calibration_status": "no_feasible_thresholds",
+      "threshold_diagnostic_only": true,
+      "thresholds": {
+        "theta_new": 0.3400000000000001,
+        "delta_ambig": 0.03
+      },
+      "top1": 0.943076923076923,
+      "test_metrics": {
+        "total": 1600,
+        "resolvable": 1300,
+        "top1_correct": 1226,
+        "accepted_resolvable": 1165,
+        "correctly_resumed": 1144,
+        "accepted": 1223,
+        "accepted_wrong": 79,
+        "nonresolvable": 300,
+        "false_bind_nonresolvable": 58,
+        "insufficient": 100,
+        "insufficient_rejected": 100,
+        "insufficient_false_bind": 0,
+        "protocol": "selective-routing-v2-singleton-zero",
+        "top1": 0.943076923076923,
+        "coverage": 0.8961538461538462,
+        "correct_resume_coverage": 0.88,
+        "overall_acceptance": 0.764375,
+        "accepted_error": 0.06459525756336877,
+        "nonresolvable_false_bind_rate": 0.19333333333333333,
+        "insufficient_rejection_rate": 1.0,
+        "insufficient_false_bind_rate": 0.0,
+        "route_class_accuracy": {
+          "NEW": 1.0,
+          "AMBIGUOUS": 0.35
+        },
+        "new_ambiguous_macro_accuracy": 0.675,
+        "class_support": {
+          "RESUME": 1300,
+          "INSUFFICIENT": 100,
+          "AMBIGUOUS": 100,
+          "NEW": 100
+        },
+        "confusion": {
+          "AMBIGUOUS->AMBIGUOUS": 35,
+          "AMBIGUOUS->NEW": 7,
+          "AMBIGUOUS->RESUME": 58,
+          "INSUFFICIENT->NEW": 100,
+          "NEW->NEW": 100,
+          "RESUME->AMBIGUOUS": 126,
+          "RESUME->NEW": 9,
+          "RESUME->RESUME": 1165
+        },
+        "note": "Rejecting INSUFFICIENT proves only non-assignment, not correct NEW/create or AMBIGUOUS semantics."
+      },
+      "test_including_missing_targets": {
+        "total": 2900,
+        "resolvable": 1300,
+        "top1_correct": 1226,
+        "accepted_resolvable": 1165,
+        "correctly_resumed": 1144,
+        "accepted": 2116,
+        "accepted_wrong": 972,
+        "nonresolvable": 1600,
+        "false_bind_nonresolvable": 951,
+        "insufficient": 1400,
+        "insufficient_rejected": 507,
+        "insufficient_false_bind": 893,
+        "protocol": "selective-routing-v2-singleton-zero",
+        "top1": 0.943076923076923,
+        "coverage": 0.8961538461538462,
+        "correct_resume_coverage": 0.88,
+        "overall_acceptance": 0.7296551724137931,
+        "accepted_error": 0.45935727788279773,
+        "nonresolvable_false_bind_rate": 0.594375,
+        "insufficient_rejection_rate": 0.36214285714285716,
+        "insufficient_false_bind_rate": 0.6378571428571429,
+        "route_class_accuracy": {
+          "NEW": 1.0,
+          "AMBIGUOUS": 0.35
+        },
+        "new_ambiguous_macro_accuracy": 0.675,
+        "class_support": {
+          "RESUME": 1300,
+          "INSUFFICIENT": 1400,
+          "AMBIGUOUS": 100,
+          "NEW": 100
+        },
+        "confusion": {
+          "AMBIGUOUS->AMBIGUOUS": 35,
+          "AMBIGUOUS->NEW": 7,
+          "AMBIGUOUS->RESUME": 58,
+          "INSUFFICIENT->AMBIGUOUS": 363,
+          "INSUFFICIENT->NEW": 144,
+          "INSUFFICIENT->RESUME": 893,
+          "NEW->NEW": 100,
+          "RESUME->AMBIGUOUS": 126,
+          "RESUME->NEW": 9,
+          "RESUME->RESUME": 1165
+        },
+        "note": "Rejecting INSUFFICIENT proves only non-assignment, not correct NEW/create or AMBIGUOUS semantics."
+      },
+      "formal_release": false
+    }
+  ],
+  "export": {
+    "status": "failed",
+    "error": "ONNX parity failed; see export-report.json; artifacts are not accepted",
+    "traceback": "Traceback (most recent call last):\n  File \"/Users/ai-bot/tide-training/scripts/finish_revision4_experiment.py\", line 31, in main\n    try:export=export_model(selections[0]['checkpoint'],cfg,'output/revision4-experiment-onnx')\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/ai-bot/tide-training/src/tide/export.py\", line 59, in export_model\n    raise RuntimeError(\"ONNX parity failed; see export-report.json; artifacts are not accepted\")\nRuntimeError: ONNX parity failed; see export-report.json; artifacts are not accepted\n"
+  },
+  "formal_release": false,
+  "note": "Full model is predesignated; no choosing full/top by test scores. Synthetic goal-disjoint result is not independent human or SDK acceptance.",
+  "remaining": [
+    "independent review",
+    "quantization parity",
+    "Kylin SDK and target measurements"
+  ]
+}

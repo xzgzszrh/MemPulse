@@ -1,0 +1,33 @@
+{
+  "purpose": "validation-only D/E/C reference-formula diagnostic, no test tuning or release",
+  "model": "revision4 full step100",
+  "source_prediction_sha256": "b1d5223a286db14653bee205aef032e823241f40240ab4e54d3455ea164ccf66",
+  "evidence_source": "literal registered names/aliases in visible request/context; verified topic e0",
+  "available_signals": [
+    "D",
+    "E",
+    "C"
+  ],
+  "unimplemented": [
+    "general entity extraction",
+    "FTS",
+    "graph",
+    "task continuity"
+  ],
+  "failure_attribution": {
+    "vector_false_bind_removed": 818,
+    "same_or_unresolved_customer": 701,
+    "different_explicit_customer": 117
+  },
+  "recognized_rows": 2700,
+  "rows": 2900,
+  "selected": null,
+  "metrics": null,
+  "best_error_at_90pct_coverage": {
+    "theta": 0.73,
+    "delta": 0.0,
+    "accepted_error": 0.451988360814743,
+    "coverage": 0.9107692307692308
+  },
+  "publishable": false
+}

@@ -1,0 +1,17 @@
+include README.md LICENSE requirements-dev.lock
+recursive-include docs *.md
+recursive-include scripts *.py
+recursive-include tests *.py
+recursive-include training *.py
+recursive-include deploy *.service
+include ui/package.json ui/package-lock.json ui/components.json ui/tsconfig.json ui/vite.config.ts ui/tailwind.config.js ui/postcss.config.js ui/index.html
+recursive-include ui/src *.ts *.tsx *.css
+recursive-include src/mempulse/static *
+recursive-include src/mempulse/skill_data *.md
+recursive-include skills *.md
+recursive-include src/mempulse/_vendor LICENSE
+prune .venv
+prune third_party
+prune data
+prune runs
+prune ui/node_modules

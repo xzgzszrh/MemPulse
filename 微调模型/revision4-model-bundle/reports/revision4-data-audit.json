@@ -1,0 +1,38 @@
+{
+  "data_sha256": "cea449ba9f0752b1f55f5f334dbecb45ace26208878f5f379c6dad452b29fb68",
+  "goal_families": {
+    "train": 48,
+    "validation": 24,
+    "test": 24
+  },
+  "goal_overlap": 0,
+  "structure": {
+    "dataset_sha256": "2bf3bfae48379ce6f2aa51afb8a5b166d3f5764e854cfa5cad35093c9372ca4a",
+    "structural_ready": true,
+    "formal_training_approved": false,
+    "semantic_review": "requires_independent_review_evidence",
+    "topic_counts": {
+      "train": 1600,
+      "validation": 200,
+      "test": 200
+    },
+    "query_count": 20000,
+    "categories": {
+      "hard_different": 5000,
+      "same_topic": 6000,
+      "new_ambiguous": 3000,
+      "relation": 4000,
+      "version_reuse": 2000
+    },
+    "error_counts": {},
+    "errors": []
+  },
+  "formal_release": false,
+  "human_review_complete": false,
+  "freeze_policy": "test goals fixed before training; test predictions never used for selection",
+  "limitations": [
+    "synthetic goals repeated across independent projects within split",
+    "goal family diversity remains finite",
+    "alias strings explicitly introduced in history; real user paraphrases require team validation"
+  ]
+}

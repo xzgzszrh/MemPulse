@@ -1,0 +1,133 @@
+{
+  "purpose": "goal-disjoint experimental retrieval handoff",
+  "formal_release": false,
+  "checkpoint": "revision4 full step100; 5 epochs/822 steps completed",
+  "precision": [
+    "FP32",
+    "mixed INT8: 60/72 constant MatMul quantized; first and last transformer layers FP32"
+  ],
+  "source_revision": "e395fdc9771e7fe6d5e4e4202589bc4aebd945d8a56552f20879ec2196fef1fa",
+  "automatic_binding_allowed": false,
+  "files": {
+    "requirements.txt": {
+      "bytes": 59,
+      "sha256": "4eda0dc824ac00fe9b16b98f37a27316e04539a456cd418f36a54d70a5aa91b2"
+    },
+    "README.md": {
+      "bytes": 2979,
+      "sha256": "df3a7811395a8766b5374f6d237ea91ac5e27e155b32893c1db1ea4f375f9968"
+    },
+    "demo.py": {
+      "bytes": 2372,
+      "sha256": "46dd8527dc72d00e851bc110102c46761ce9dff786ad113eeeb3a802db8db1dd"
+    },
+    "topics.json": {
+      "bytes": 541,
+      "sha256": "68bae238ebaec0cf310f459e4e5962adabd6e92469cd6551ccf933de605dd906"
+    },
+    "encoder/tokenizer_config.json": {
+      "bytes": 1463,
+      "sha256": "6c93288d6b487c090df8ffd3f90fbea237c5187bb9b62788f911737cb7ea6028"
+    },
+    "encoder/special_tokens_map.json": {
+      "bytes": 695,
+      "sha256": "5d5b662e421ea9fac075174bb0688ee0d9431699900b90662acd44b2a350503a"
+    },
+    "encoder/model-int8-mixed.onnx": {
+      "bytes": 195440645,
+      "sha256": "59eeb3d77a0c105ed05ee4b0c69b6fe3f1176379af703d3fc5cd008a4312a2ea"
+    },
+    "encoder/model-fp32.onnx": {
+      "bytes": 406901590,
+      "sha256": "820b9073fca4217500393a1de03b1375d4f8e0babcf81dae1b0a9712af3ff9ef"
+    },
+    "encoder/tokenizer.json": {
+      "bytes": 439377,
+      "sha256": "218cb383888826895a88ff4a319c1432a40216b9ca9708eab942dd15c85e675f"
+    },
+    "encoder/export-report.json": {
+      "bytes": 1052,
+      "sha256": "432f9d670022ba381d054d201b091bef84077302a92785c8bf71019c69432aad"
+    },
+    "encoder/vocab.txt": {
+      "bytes": 109540,
+      "sha256": "45bbac6b341c319adc98a532532882e91a9cefc0329aa57bac9ae761c27b291c"
+    },
+    "encoder/tide_config.json": {
+      "bytes": 534,
+      "sha256": "3a15eb5b8f4c99d42f4c8e518665eb361fb538b4f09c4f3307b3d492b369d3ee"
+    },
+    "weights/model.safetensors": {
+      "bytes": 409092920,
+      "sha256": "701fcfe8345ef5b7183f9cc8671ab59a859c7893a95df5a286bba65690d65be0"
+    },
+    "weights/tokenizer_config.json": {
+      "bytes": 1272,
+      "sha256": "7b082b48a08a0b5c5939d99472e33addce3d96202155e33f7928cecd171186a0"
+    },
+    "weights/special_tokens_map.json": {
+      "bytes": 695,
+      "sha256": "5d5b662e421ea9fac075174bb0688ee0d9431699900b90662acd44b2a350503a"
+    },
+    "weights/config.json": {
+      "bytes": 911,
+      "sha256": "51b7d85f5ed3035a71c2ea766292fde1875a4f7f6fdbe3ae43e1ccc77aa00985"
+    },
+    "weights/tokenizer.json": {
+      "bytes": 439377,
+      "sha256": "218cb383888826895a88ff4a319c1432a40216b9ca9708eab942dd15c85e675f"
+    },
+    "weights/vocab.txt": {
+      "bytes": 109540,
+      "sha256": "45bbac6b341c319adc98a532532882e91a9cefc0329aa57bac9ae761c27b291c"
+    },
+    "weights/tide_config.json": {
+      "bytes": 534,
+      "sha256": "3a15eb5b8f4c99d42f4c8e518665eb361fb538b4f09c4f3307b3d492b369d3ee"
+    },
+    "reports/revision4-mixed-int8-verification.json": {
+      "bytes": 8903,
+      "sha256": "57a63c25e481982585d0f6e22277a92bb42fd81a86193018c8373dce2470840b"
+    },
+    "reports/revision4-quant-alpha-0.25.json": {
+      "bytes": 3067,
+      "sha256": "9fcd16349ef57657aaed6a58f45a2c9ac2edf22d51b37a4d45a57410085c40bd"
+    },
+    "reports/revision4-mixed-edges-int8-diagnosis.json": {
+      "bytes": 2123,
+      "sha256": "b060a27094225a50c8d7aa65877b2bac071f094f4f0e609702bc67131f5a6009"
+    },
+    "reports/revision4-mixed-int8-diagnosis.json": {
+      "bytes": 1663,
+      "sha256": "12e0a8597b9fa749d7c4669e4e824ca2ede868389e0b40c09580edfc1b87b5ac"
+    },
+    "reports/revision4-export.json": {
+      "bytes": 1052,
+      "sha256": "432f9d670022ba381d054d201b091bef84077302a92785c8bf71019c69432aad"
+    },
+    "reports/revision4-mixed-edges-int8-verification.json": {
+      "bytes": 16052,
+      "sha256": "86f2cefdc0afe3bbb0657554ed129bfee5d40638494d2508337517013faec28c"
+    },
+    "reports/revision4-experiment-completion.json": {
+      "bytes": 11610,
+      "sha256": "9d3378fa5263a2f8965cfc5452d21a293d1ddfba5f84ecdce49d14f6736ca6f0"
+    },
+    "reports/revision4-data-audit.json": {
+      "bytes": 1157,
+      "sha256": "9a4521430e90a969c4b788c057a8b07a0c65d05dd2b195c440a26694fda69c7e"
+    },
+    "reports/revision4-quant-alpha-0.75.json": {
+      "bytes": 3025,
+      "sha256": "39c33bf51b840b987719d273d21693a78ac781665cbb198d1ad2333704a7cd7a"
+    },
+    "reports/revision4-scope-diagnosis.json": {
+      "bytes": 905,
+      "sha256": "093bc7d57b98ed150d365fbf785e639fa8f1b6d2dd1d9d0eafa9aa06c6baa248"
+    },
+    "reports/revision4-quant-diagnosis.json": {
+      "bytes": 5985,
+      "sha256": "0e44b8b1b4bd835b40e46c2ebdf87b0150bacb8c39c3412e5c7758174d4a9115"
+    }
+  }
+}

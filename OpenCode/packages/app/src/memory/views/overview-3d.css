@@ -1,0 +1,147 @@
+.memory-overview {
+  container: memory-overview / inline-size;
+  --memory-home-row: 36px;
+  --memory-home-heading: 28px;
+}
+
+.memory-home-surface {
+  display: grid;
+  grid-template-rows: var(--memory-home-heading) minmax(0, 1fr);
+  gap: 8px;
+  height: calc(var(--memory-home-heading) + 3 * var(--memory-home-row) + 58px);
+  background: color-mix(in srgb, var(--v2-background-bg-base) 92%, transparent);
+  border: 1px solid color-mix(in srgb, var(--v2-border-border-base) 65%, transparent);
+  box-shadow:
+    0 20px 48px -12px var(--v2-alpha-dark-12),
+    0 4px 8px -2px var(--v2-alpha-dark-6),
+    inset 0 1px 0 var(--v2-alpha-light-12);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.memory-home-actions {
+  grid-template-rows: var(--memory-home-heading) repeat(3, var(--memory-home-row));
+}
+
+.memory-home-heading {
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+
+.memory-home-recent-list {
+  display: grid;
+  grid-template-rows: repeat(3, var(--memory-home-row));
+  gap: 8px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.memory-home-recent-list > li {
+  min-width: 0;
+}
+
+.memory-home-empty {
+  height: var(--memory-home-row);
+}
+
+.memory-home-action[data-component="button-v2"][data-size="large"] {
+  height: var(--memory-home-row);
+  min-width: 0;
+  width: 100%;
+  justify-content: space-between;
+  border-radius: 10px;
+  padding-inline: 12px;
+  transition: transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.memory-home-keybind[data-component="keybind-v2"] {
+  color: inherit;
+  opacity: 0.65;
+}
+
+.memory-home-project[data-component="button-v2"] {
+  width: 100%;
+  min-width: 0;
+  height: var(--memory-home-heading);
+  justify-content: space-between;
+  border-radius: 8px;
+  padding-inline: 8px;
+  color: var(--v2-text-text-muted);
+}
+
+/* Radio items normally have a single 28px line. Project names need a second
+   line for their path, including when the menu is rendered through a portal. */
+.memory-home-project-menu[data-component="menu-v2-content"] {
+  width: 360px;
+  max-width: calc(100vw - 32px);
+  max-height: min(360px, var(--kb-menu-content-available-height, 70vh));
+  overflow-y: auto;
+  padding: 4px;
+}
+
+.memory-home-project-option[data-component="menu-v2-item"] {
+  height: auto;
+  min-height: 48px;
+  flex-shrink: 0;
+  padding: 6px 10px;
+}
+
+.memory-home-project-label {
+  display: grid;
+  min-width: 0;
+  flex: 1;
+  gap: 2px;
+  line-height: 18px;
+}
+
+.memory-home-project-label > span {
+  line-height: 18px;
+}
+
+.memory-home-keybind[data-component="keybind-v2"] [data-slot="keybind-v2-label"] {
+  color: inherit;
+}
+
+.memory-home-action[data-component="button-v2"][data-variant="contrast"] {
+  --v2-background-bg-contrast: var(--v2-background-bg-inverse);
+  --v2-text-text-contrast: var(--v2-text-text-inverse);
+  background-image: none;
+  background-color: var(--v2-background-bg-inverse);
+  color: var(--v2-text-text-inverse);
+  text-shadow: none;
+}
+
+@container memory-overview (min-width: 680px) {
+  .memory-home-panels {
+    grid-template-columns: minmax(0, 1.8fr) minmax(260px, 1fr);
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .memory-home-action:hover {
+    transform: translateY(-2px);
+  }
+
+  .memory-home-action:active {
+    transform: translateY(0) scale(0.985);
+  }
+}
+
+@media (pointer: coarse) {
+  .memory-overview {
+    --memory-home-row: 44px;
+    --memory-home-heading: 44px;
+  }
+  .memory-home-action[data-component="button-v2"][data-size="large"],
+  .memory-home-project[data-component="button-v2"],
+  .memory-home-recent {
+    min-height: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .memory-home-action[data-component="button-v2"][data-size="large"] {
+    transition: none;
+  }
+}

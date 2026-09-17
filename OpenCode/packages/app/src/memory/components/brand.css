@@ -1,0 +1,26 @@
+/* Both variants are in the DOM; the document's colour scheme decides which shows. */
+[data-component="mempulse-brand"] {
+  display: inline-block;
+  position: relative;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+[data-component="mempulse-brand"] > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+[data-component="mempulse-brand"] > img[data-scheme="dark"] {
+  display: none;
+}
+
+[data-color-scheme="dark"] [data-component="mempulse-brand"] > img[data-scheme="light"] {
+  display: none;
+}
+
+[data-color-scheme="dark"] [data-component="mempulse-brand"] > img[data-scheme="dark"] {
+  display: block;
+}

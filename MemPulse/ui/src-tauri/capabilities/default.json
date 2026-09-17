@@ -1,0 +1,1 @@
+{"identifier":"main-window","description":"Local memory UI and native window controls only","windows":["main"],"permissions":["core:default","core:window:allow-start-dragging","window-state:default"]}

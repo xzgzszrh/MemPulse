@@ -1,0 +1,14 @@
+[Unit]
+Description=MemPulse local topic memory
+After=default.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/MemPulse
+Environment=MEMPULSE_DB=%h/.local/share/mempulse/memory.sqlite3
+ExecStart=%h/MemPulse/.venv/bin/mempulse ui --port 51983
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=default.target

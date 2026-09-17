@@ -1,0 +1,3 @@
+# Keep model files in the release tree; use Git LFS for repository storage.
+*.onnx filter=lfs diff=lfs merge=lfs -text
+*.safetensors filter=lfs diff=lfs merge=lfs -text

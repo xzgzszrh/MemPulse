@@ -1,0 +1,41 @@
+{
+  "source_revision": "e395fdc9771e7fe6d5e4e4202589bc4aebd945d8a56552f20879ec2196fef1fa",
+  "opset": 17,
+  "kylin_sdk": "not_tested",
+  "publishable": false,
+  "parity": {
+    "model-fp32.onnx": [
+      {
+        "query": true,
+        "min_cosine": 1.0000001192092896,
+        "max_abs_error": 4.76837158203125e-07,
+        "max_norm_error": 4.76837158203125e-07
+      },
+      {
+        "query": false,
+        "min_cosine": 1.0,
+        "max_abs_error": 4.76837158203125e-07,
+        "max_norm_error": 3.5762786865234375e-07
+      }
+    ],
+    "model-int8.onnx": [
+      {
+        "query": true,
+        "min_cosine": 0.9491915702819824,
+        "max_abs_error": 0.06159856915473938,
+        "max_norm_error": 3.5762786865234375e-07
+      },
+      {
+        "query": false,
+        "min_cosine": 0.9396347999572754,
+        "max_abs_error": 0.0679200291633606,
+        "max_norm_error": 2.384185791015625e-07
+      }
+    ]
+  },
+  "parity_passed": false,
+  "acceptance_thresholds": {
+    "fp32_min_cosine": 0.9999,
+    "int8_min_cosine": 0.99
+  }
+}
