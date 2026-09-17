@@ -3,7 +3,7 @@
 </p>
 
 <p align="center"><strong>English</strong> · <a href="README.zh-CN.md">简体中文</a></p>
-<p align="center"><a href="#memory-organized-around-topics">Understanding topics</a> · <a href="#application-screenshots">Screenshots</a> · <a href="#mempulse-and-opencode">Positioning</a> · <a href="#quick-start">Quick start</a> · <a href="#architecture">Architecture</a> · <a href="#models">Models</a> · <a href="#build-and-test">Build & test</a> · <a href="#documentation">Documentation</a></p>
+<p align="center"><a href="#memory-organized-around-topics">Understanding topics</a> · <a href="#measured-results">Results</a> · <a href="#application-screenshots">Screenshots</a> · <a href="#mempulse-and-opencode">Positioning</a> · <a href="#quick-start">Quick start</a> · <a href="#architecture">Architecture</a> · <a href="#models">Models</a> · <a href="#build-and-test">Build & test</a> · <a href="#documentation">Documentation</a></p>
 
 # MemPulse
 
@@ -30,20 +30,19 @@ A topic answers: **“What have we been working on, where does it stand, and wha
 | Project / directory | Background context for locating work. One project can contain several independent topics. |
 | Tags / people / files and other entities | Clues for locating topics and connecting evidence. Sharing these clues does not automatically make two distinct matters one topic. |
 
+### Why organize by topic?
+
+One matter can span several sessions, while a single session can switch between matters. Following session timelines alone can scatter a matter's history or mix distinct goals within the same project. **Topics provide a stable identity and boundary for the work; events retain their original sources and timestamps.**
+
+![Why topics: interleaved report and network-diagnosis events from multiple sessions are associated with two continuing topics.](docs/assets/evaluation/why-topics-en.png)
+
+This figure explains the organization and design rationale. It is not a measured topic-vs-flat-memory ablation.
+
+Isolated functional probes confirmed that two explicitly bound sessions continue the same topic and that the binding survives a service restart. These are specific behavior checks; see the [evaluation notes](docs/evaluation/README.md) for all probe outcomes, including failures.
+
 ### How does a topic grow?
 
 Consider **“Qinghe client delivery report”** from the synthetic demo: the delivery scope is confirmed and a V2 template imported; the client later confirms V3; a draft is then generated for review. These records may come from different sessions while continuing the same matter.
-
-```mermaid
-flowchart LR
-    A["Events from session A<br/>Requirements and V2 template"] --> T["One persistent topic<br/>Qinghe client delivery report"]
-    B["Events from session B<br/>Confirm the switch to V3"] --> T
-    C["Events from session C<br/>Generate a draft for review"] --> T
-    T --> R["Restore working context<br/>Fields · evidence · checkpoints · gaps"]
-    style T fill:#fff0ec,stroke:#c83127,stroke-width:2px,color:#242522
-```
-
-*Conceptual example: related events enter the same topic after their association is established. Sessions supply the events; the topic maintains the continuing memory.*
 
 A topic brings together:
 
@@ -117,6 +116,29 @@ Capture provenance and reproduction notes are in [screenshots/README](docs/asset
 ![Memory lifecycle: capture events, organize them by topic, and retrieve evidence to restore context.](docs/assets/readme/lifecycle-en.png)
 
 In the desktop integration, unbound captured events remain pending. Agent-initiated memory mutations are proposals that the user confirms in the UI. Retrieval does not itself authorize a write. Direct CLI and API calls are separate interfaces for their callers.
+
+## Measured results
+
+Rerun on 2026-09-17 against the public source on Apple M1 Pro / 16 GiB: 53 topics, 284 synthetic events and 246 unique queries (234 positives), three rounds per configuration. **Both conditions use the same topic structure; the comparison measures the effect of adding the TIDE FP32 encoder.**
+
+![Measured topic ranking, evidence recall and latency for lexical/structured retrieval versus TIDE FP32 within the same topic structure.](docs/assets/evaluation/retrieval-tradeoff-en.png)
+
+- Topic Top-1: **65.38% → 82.48%**, a 17.09-percentage-point increase.
+- Macro evidence Recall@10: **81.27% → 92.59%**; complete evidence coverage rose from **187/234** to **214/234**.
+- Local retrieval P95: **10.83 → 83.22 ms**. Better recall incurs inference cost. Timing excludes startup, Electron and LLM generation.
+
+For 48 authored positive context queries through the desktop service, complete evidence coverage was **44/48** without a binding and **46/48** when the evaluator supplied the correct topic ID. The latter is not automatic topic-recognition accuracy; order and cache also differ.
+
+<details>
+<summary>Inspect all categories: improvements and remaining weak spots</summary>
+
+![Topic Top-1 across all positive query categories, including sample counts.](docs/assets/evaluation/category-results-en.png)
+
+FP32 scores only **8/16 (50%)** on confusable matters and **3/7 (42.86%)** on fallback/scope queries, both below this run's lexical baseline. High scores in tiny categories do not establish real-world reliability.
+
+</details>
+
+This corpus includes development questions, lacks independent blind review and has unverified training overlap. Final LLM answer accuracy and Kylin target hardware were not tested. Some targeted boundary checks still fail; see the [method, failure scope and reproduction commands](docs/evaluation/README.md). [Metrics JSON](docs/evaluation/2026-09-17/measurements.json) and minimal request records are public, with source for regenerating the charts.
 
 ## Quick start
 

@@ -2,6 +2,7 @@
 
 项目介绍：[English](../README.md) · [简体中文](../README.zh-CN.md)
 
+- [实测效果与复现](evaluation/README.zh-CN.md) · [Evaluation (English)](evaluation/README.md)
 - [完整工程构建](BUILD.md)
 - [本次构建验证](BUILD-VERIFICATION.md)
 - [贡献指南](CONTRIBUTING.md)
