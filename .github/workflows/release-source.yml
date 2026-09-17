@@ -1,0 +1,65 @@
+name: Package complete release source
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing tag of a draft release
+        required: true
+        default: v0.1.0
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-source-${{ inputs.tag }}
+  cancel-in-progress: false
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      RELEASE_TAG: ${{ inputs.tag }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - name: Check out tagged source and actual model weights
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ inputs.tag }}
+          lfs: true
+          persist-credentials: false
+      - name: Verify model manifest
+        run: python3 scripts/verify_models.py
+      - name: Package tracked source with real model files
+        run: |
+          python3 - <<'PY'
+          import gzip, os, re, subprocess, tarfile
+          from pathlib import Path
+          tag = os.environ['RELEASE_TAG']
+          if not re.fullmatch(r'v[0-9]+\.[0-9]+\.[0-9]+(?:[-.][A-Za-z0-9.-]+)?', tag):
+              raise SystemExit('Expected a semantic version tag')
+          root = Path.cwd()
+          output = Path(os.environ['RUNNER_TEMP']) / f'mempulse-{tag}-source-with-models.tar.gz'
+          files = sorted(filter(None, subprocess.check_output(['git', 'ls-files', '-z']).decode().split('\0')))
+          timestamp = int(subprocess.check_output(['git', 'show', '-s', '--format=%ct', 'HEAD']))
+          def portable(info):
+              info.uid = info.gid = 0
+              info.uname = info.gname = ''
+              info.mtime = timestamp
+              return info
+          with output.open('wb') as raw:
+              with gzip.GzipFile(filename='', mode='wb', compresslevel=1, fileobj=raw, mtime=timestamp) as compressed:
+                  with tarfile.open(fileobj=compressed, mode='w', format=tarfile.PAX_FORMAT) as archive:
+                      for relative in files:
+                          archive.add(root / relative, arcname=f'MemPulse-{tag}/{relative}', recursive=False, filter=portable)
+          print(f'Packed {len(files)} files: {output.stat().st_size:,} bytes')
+          PY
+      - name: Upload only to an existing draft release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          test "$(gh release view "$RELEASE_TAG" --json isDraft --jq .isDraft)" = true
+          archive="$RUNNER_TEMP/mempulse-$RELEASE_TAG-source-with-models.tar.gz"
+          sha256sum "$archive" >> "$GITHUB_STEP_SUMMARY"
+          gh release upload "$RELEASE_TAG" "$archive"
