@@ -33,7 +33,7 @@ def main():
         result = subprocess.check_output(['git', '-C', str(ROOT / name), 'ls-files',
                                           '--cached', '--others', '--exclude-standard', '-z'])
         candidates.update(Path(name) / item.decode() for item in result.split(b'\0') if item)
-    for name in ('docs', 'scripts'):
+    for name in ('docs', 'scripts', '.github'):
         candidates.update(p.relative_to(ROOT) for p in (ROOT / name).rglob('*') if p.is_file())
     candidates.update(Path(name) for name in ('README.md', 'README.zh-CN.md', 'LICENSE', 'NOTICE', '.gitignore', '.gitattributes'))
     files = []
